@@ -188,8 +188,18 @@ def main():
                "</p>", ""]
     md += [
            f'<p align="center"><sub>42 Projects by {ME} · Designed with care. Hosted on GitHub.</sub></p>', ""]
+    # GitHub turns every image without a link into a link to the image file.
+    # An empty <a> around it prevents that (and keeps a click on a tile opening the project).
+    fixed = []
+    for line in "\n".join(md).split("\n"):
+        st = line.strip()
+        if st.startswith("<img ") and st.endswith(">"):
+            line = line.replace(st, f"<a>{st}</a>")
+        elif st.startswith("<summary><img "):
+            line = line.replace("<summary><img ", "<summary><a><img ").replace("></summary>", "></a></summary>")
+        fixed.append(line)
     with open(os.path.join(PROFILE, "README.md"), "w", encoding="utf-8") as f:
-        f.write("\n".join(md))
+        f.write("\n".join(fixed))
     print(f"OK: {len(projects)} projects for {ORG}")
 
 
