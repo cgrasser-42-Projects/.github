@@ -1,0 +1,347 @@
+[
+  {
+    "name": "libft",
+    "kind": "Library",
+    "glyph": ".a",
+    "accent": "blue",
+    "tagline": "My own C library, rewritten from scratch.",
+    "pitch": "The standard C functions, rebuilt one by one. The toolbox every other 42 project is built on.",
+    "illustration": "profile/assets/libft/illustration.svg",
+    "illustration_alt": "The functions of libft grouped into libc, additional and linked-list functions",
+    "features": [
+      {
+        "title": "Libc, rewritten",
+        "text": "strlen, memcpy, atoi, calloc… the same behaviour as the originals, written without the standard library."
+      },
+      {
+        "title": "Extra helpers",
+        "text": "split, itoa, strjoin, strtrim: the functions the libc is missing for everyday string work."
+      },
+      {
+        "title": "Linked lists",
+        "text": "A small t_list toolkit to create, add, map, iterate and free lists without leaks."
+      }
+    ],
+    "syntax": "#include \"libft.h\"\ncc main.c -L. -lft",
+    "options": [
+      {
+        "key": "libft.h",
+        "text": "Header with every prototype and the t_list struct."
+      },
+      {
+        "key": "libft.a",
+        "text": "Static archive to link into your program."
+      },
+      {
+        "key": "make",
+        "text": "Builds libft.a. Also: clean, fclean, re."
+      }
+    ],
+    "binary": "libft.a",
+    "binary_note": "Download the archive, write a small main.c that includes libft.h, and link them together.",
+    "try": "cc main.c libft.a -o test && ./test",
+    "requirements": [
+      "cc / gcc",
+      "libft.h header",
+      "Linux or macOS"
+    ],
+    "demo": [
+      "$ make",
+      "cc -Wall -Wextra -Werror -c ft_*.c",
+      "ar rcs libft.a ft_*.o",
+      "$ ./test",
+      "ft_strlen(\"42 Paris\") = 8",
+      "ft_atoi(\"-42\")       = -42",
+      "ft_itoa(2026)        = \"2026\""
+    ]
+  },
+  {
+    "name": "ft_printf",
+    "kind": "Formatted output",
+    "glyph": "%d",
+    "accent": "purple",
+    "tagline": "A reimplementation of printf.",
+    "pitch": "printf, rebuilt with variadic arguments. Eight conversions, one return value, zero surprises.",
+    "illustration": "profile/assets/ft_printf/illustration.svg",
+    "illustration_alt": "The eight ft_printf conversions and an example output for each",
+    "features": [
+      {
+        "title": "Variadic arguments",
+        "text": "Reads any number of arguments with va_start, va_arg and va_end."
+      },
+      {
+        "title": "Eight conversions",
+        "text": "c, s, p, d, i, u, x, X and %, each printed exactly like the real printf."
+      },
+      {
+        "title": "Same return value",
+        "text": "Returns the number of characters printed, so it can replace printf in tests."
+      }
+    ],
+    "syntax": "int ft_printf(const char *format, ...);",
+    "options": [
+      {
+        "key": "%c  %s",
+        "text": "A character, a string."
+      },
+      {
+        "key": "%p",
+        "text": "A pointer address in hexadecimal."
+      },
+      {
+        "key": "%d  %i  %u",
+        "text": "Signed and unsigned decimal numbers."
+      },
+      {
+        "key": "%x  %X  %%",
+        "text": "Hex in lower or upper case, and a literal %."
+      }
+    ],
+    "binary": "ft_printf_test",
+    "binary_note": "The test binary prints every conversion next to the real printf so you can compare.",
+    "try": "./ft_printf_test",
+    "requirements": [
+      "Linux x86_64",
+      "Terminal"
+    ],
+    "demo": [
+      "$ ./ft_printf_test",
+      "%d   ->  42",
+      "%x   ->  2a",
+      "%p   ->  0x7ffd5e8c",
+      "%s   ->  Hello, World.",
+      "%c%c ->  42"
+    ]
+  },
+  {
+    "name": "get_next_line",
+    "kind": "File I/O",
+    "glyph": "\\n",
+    "accent": "orange",
+    "tagline": "Read a file line by line, with no memory leaks.",
+    "pitch": "Call it, get the next line. Works on files and standard input, with any buffer size.",
+    "illustration": "profile/assets/get_next_line/illustration.svg",
+    "illustration_alt": "A file read one line at a time by get_next_line, with the second line highlighted",
+    "features": [
+      {
+        "title": "One line per call",
+        "text": "Each call returns the next line, including its \\n, or NULL at the end of the file."
+      },
+      {
+        "title": "A static buffer",
+        "text": "Whatever was read past the line is kept for the next call."
+      },
+      {
+        "title": "Any BUFFER_SIZE",
+        "text": "From 1 to 10 000 000 bytes, chosen at compile time, with no leaks."
+      }
+    ],
+    "syntax": "char *get_next_line(int fd);",
+    "options": [
+      {
+        "key": "fd",
+        "text": "A file descriptor: a file opened with open(), or 0 for standard input."
+      },
+      {
+        "key": "BUFFER_SIZE",
+        "text": "Bytes read per read() call. Set with -D BUFFER_SIZE=42."
+      },
+      {
+        "key": "return",
+        "text": "The line read, or NULL at end of file or on error."
+      }
+    ],
+    "binary": "gnl",
+    "binary_note": "The demo binary prints a file line by line, numbering each call.",
+    "try": "./gnl file.txt",
+    "requirements": [
+      "Linux x86_64",
+      "A text file"
+    ],
+    "demo": [
+      "$ ./gnl poem.txt",
+      "[1] Roses are red,",
+      "[2] Segfaults are blue,",
+      "[3] Valgrind says nothing,",
+      "[4] All heap blocks freed."
+    ]
+  },
+  {
+    "name": "push_swap",
+    "kind": "Algorithms",
+    "glyph": "sa",
+    "accent": "green",
+    "tagline": "Sort a stack with the fewest operations possible.",
+    "pitch": "Two stacks, eleven moves, and one goal: sort the numbers in as few operations as possible.",
+    "illustration": "profile/assets/push_swap/illustration.svg",
+    "illustration_alt": "Stack a before sorting, unordered, and after sorting, in order",
+    "features": [
+      {
+        "title": "Two stacks",
+        "text": "Numbers start in stack a. Stack b is empty and used as temporary space."
+      },
+      {
+        "title": "Eleven operations",
+        "text": "Swap, push, rotate and reverse rotate, on one stack or both at once."
+      },
+      {
+        "title": "As few as possible",
+        "text": "The program prints the shortest list of operations it finds to sort stack a."
+      }
+    ],
+    "syntax": "./push_swap <numbers...>",
+    "options": [
+      {
+        "key": "sa  sb  ss",
+        "text": "Swap the first two numbers of a, b, or both."
+      },
+      {
+        "key": "pa  pb",
+        "text": "Push the top number from one stack to the other."
+      },
+      {
+        "key": "ra  rb  rr",
+        "text": "Rotate: the first number goes to the bottom."
+      },
+      {
+        "key": "rra  rrb  rrr",
+        "text": "Reverse rotate: the last number comes to the top."
+      }
+    ],
+    "binary": "push_swap",
+    "binary_note": "Give it a list of integers, without duplicates, and it prints the operations that sort them.",
+    "try": "./push_swap 3 2 5 1 4",
+    "requirements": [
+      "Linux x86_64",
+      "Integers, no duplicates"
+    ],
+    "demo": [
+      "$ ./push_swap 3 2 5 1 4",
+      "pb",
+      "pb",
+      "sa",
+      "ra",
+      "pa",
+      "pa",
+      "ra",
+      "$ ./push_swap 3 2 5 1 4 | wc -l",
+      "7"
+    ]
+  },
+  {
+    "name": "so_long",
+    "kind": "2D game",
+    "glyph": "P",
+    "accent": "pink",
+    "tagline": "A small 2D game built with the MiniLibX.",
+    "pitch": "Pick up every item on the map, then reach the exit. Every move is counted.",
+    "illustration": "profile/assets/so_long/illustration.svg",
+    "illustration_alt": "A pixel-art level of so_long with walls, collectibles, the player and the exit",
+    "features": [
+      {
+        "title": "Maps in .ber files",
+        "text": "A rectangle of characters: walls, floor, items, one exit and one player."
+      },
+      {
+        "title": "Valid paths only",
+        "text": "The map is checked: closed by walls, with a path to every item and to the exit."
+      },
+      {
+        "title": "Every move counted",
+        "text": "The move count is shown in the shell. Escape or the red cross closes the game."
+      }
+    ],
+    "syntax": "./so_long maps/<level>.ber",
+    "options": [
+      {
+        "key": "1  0",
+        "text": "Wall and empty floor."
+      },
+      {
+        "key": "C",
+        "text": "Collectible: pick them all up to open the exit."
+      },
+      {
+        "key": "E  P",
+        "text": "The exit and the player start."
+      },
+      {
+        "key": "W A S D",
+        "text": "Move. Escape quits the game."
+      }
+    ],
+    "binary": "so_long",
+    "binary_note": "Download the game, then launch it with one of the maps in the maps/ folder.",
+    "try": "./so_long maps/level1.ber",
+    "requirements": [
+      "Linux x86_64",
+      "X11 + MiniLibX",
+      "A .ber map"
+    ],
+    "demo": [
+      "$ cat maps/level1.ber",
+      "1111111111111",
+      "10010000000C1",
+      "1000011111001",
+      "1P0011E000001",
+      "1111111111111",
+      "$ ./so_long maps/level1.ber"
+    ]
+  },
+  {
+    "name": "born2beroot",
+    "kind": "System admin",
+    "glyph": "#",
+    "accent": "teal",
+    "tagline": "Setting up and securing a Debian server.",
+    "pitch": "A Debian virtual machine, set up by hand and locked down layer by layer.",
+    "illustration": "profile/assets/born2beroot/illustration.svg",
+    "illustration_alt": "The layers of the born2beroot server, from Debian up to the monitoring script",
+    "features": [
+      {
+        "title": "Encrypted partitions",
+        "text": "LVM on an encrypted disk, with separate partitions for /, /home, /var and more."
+      },
+      {
+        "title": "Locked-down access",
+        "text": "SSH on port 4242 only, no root login, UFW firewall, strict sudo rules."
+      },
+      {
+        "title": "Monitoring",
+        "text": "A script broadcasts CPU, memory, disk and network usage to every terminal every 10 minutes."
+      }
+    ],
+    "syntax": "ssh <user>@localhost -p 4242",
+    "options": [
+      {
+        "key": "ufw",
+        "text": "Firewall: only port 4242 is open."
+      },
+      {
+        "key": "sudo",
+        "text": "Every command logged, 3 password attempts max."
+      },
+      {
+        "key": "passwords",
+        "text": "Expire every 30 days, 10 characters minimum."
+      },
+      {
+        "key": "cron",
+        "text": "Runs monitoring.sh every 10 minutes."
+      }
+    ],
+    "binary": null,
+    "binary_note": null,
+    "try": null,
+    "requirements": [],
+    "demo": [
+      "$ sudo ufw status",
+      "Status: active",
+      "4242/tcp     ALLOW     Anywhere",
+      "$ hostname",
+      "chrlgssr42",
+      "$ sudo crontab -l",
+      "*/10 * * * * /usr/local/bin/monitoring.sh"
+    ]
+  }
+]

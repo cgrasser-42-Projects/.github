@@ -1,0 +1,29 @@
+name: Build organization README
+
+on:
+  push:
+    paths: ["projects.json", "profile/assets/**/illustration.*", ".github/scripts/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Get logos (Simple Icons)
+        run: |
+          npm install --no-save simple-icons@16
+          node .github/scripts/export_icons.js
+      - name: Build README and images
+        # 2nd argument = your personal GitHub username
+        run: python3 .github/scripts/build_org.py ${{ github.repository_owner }} chrlgssr ${{ github.ref_name }}
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add -A profile
+          git commit -m "Build organization README" || exit 0
+          git push
